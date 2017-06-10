@@ -11,7 +11,7 @@ The topology will run in Local Mode.
 ## Kyro Serializer Deserializer
 
 This topology will create a User object that contains a Location object.  
-These objects are serialized/deserialized in storm using a custom Kyro Serializer/Deserializer.  
+These objects are serialized/deserialized in Storm using a custom Kyro Serializer/Deserializer.  
 The topology will run in Local Mode and tests the kyro serialization framework.  
 
 ## Author
