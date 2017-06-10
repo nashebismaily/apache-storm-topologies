@@ -32,9 +32,9 @@ public class WordCountTopology {
 		//Topology Local run
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("word-count-topology",conf, builder.createTopology());
-        Thread.sleep(100000);
-        cluster.killTopology("word-count-topology");
-        cluster.shutdown();
+	        Thread.sleep(100000);
+        	cluster.killTopology("word-count-topology");
+        	cluster.shutdown();
 	}
 }
 
