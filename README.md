@@ -1,8 +1,8 @@
-# Storm Toplogies
+# Storm Topologies
 
 This is a collection of Apache Storm topologies using the new Storm 1.x APIs
 
-## wordcount
+## Word Count
 
 This topology will read a text file and count the number of times each word appears.
 The output is printed to the console once the Spout has shut down.
