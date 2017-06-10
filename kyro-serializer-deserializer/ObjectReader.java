@@ -33,7 +33,6 @@ public class ObjectReader extends BaseBasicBolt {
 		for(Location location : locations){
 			System.out.println("city = " + location.getCity() + ", state = " + location.getState());
 		}
-
 	}
 
 	/**
