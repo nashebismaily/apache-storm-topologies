@@ -3,6 +3,10 @@ package HBaseStreaming;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.BufferedMutator;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 
@@ -20,11 +24,14 @@ public class HBaseStreamers {
     private boolean started = false;
  
     private class Streamer implements Runnable {
-        private LinkedBlockingQueue<Put> queue;
-        private HTable table;
-        private String tableName;
-        private int counter = 0;
-        private int capacity;
+    	private LinkedBlockingQueue<Put> queue;
+        //  private HTable table;
+          private String tableName;
+          private int counter = 0;
+          private int capacity;
+          private Connection connection;
+          private BufferedMutator mutator;
+   
  
         /**
          * Constructs the streamer
@@ -33,13 +40,15 @@ public class HBaseStreamers {
          * @param autoFlush whether to flush each message or batch them
          * @param capacity the size of the LinkedBlockingQueue
          */
-        public Streamer(String tableName, boolean autoFlush, int capacity) throws Exception {
-            table = new HTable(hbaseConfig, tableName);
-            table.setAutoFlush(autoFlush);
-            this.tableName = tableName;
-            queue = new LinkedBlockingQueue<Put>(capacity);
-            this.capacity = capacity;
-        }
+          public Streamer(String tableName, boolean autoFlush, int capacity) throws Exception {
+              // table = new HTable(hbaseConfig, tableName);
+              // table.setAutoFlush(autoFlush);
+              this.tableName = tableName;
+              queue = new LinkedBlockingQueue<Put>(capacity);
+              this.capacity = capacity;          
+              this.connection = ConnectionFactory.createConnection(hbaseConfig);
+              this.mutator = connection.getBufferedMutator(TableName.valueOf(tableName));        
+          }
  
         /**
          * Takes data from the LinkedBlockingQueue and adds it to HTable.
@@ -48,7 +57,8 @@ public class HBaseStreamers {
             while (true) {
                 try {
                     Put put = queue.take();
-                    table.put(put);
+                    // table.put(put);
+                    this.mutator.mutate(put);
                     counter++;
                 }
                 catch (Exception e) {
@@ -70,14 +80,15 @@ public class HBaseStreamers {
          * Flushes the streamers to HBase
          */
         public void flush() {
-            if (!table.isAutoFlush()) {
+            // if (!table.isAutoFlush()) {
                 try {
-                    table.flushCommits();
+                    // table.flushCommits();
+                	this.mutator.flush();
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            // }
         }
  
         /**
