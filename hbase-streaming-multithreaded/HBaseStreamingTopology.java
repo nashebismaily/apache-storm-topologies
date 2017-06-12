@@ -26,9 +26,9 @@ public class HBaseStreamingTopology {
 		//Topology Local run
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("hbase-stream-topology",conf, builder.createTopology());
-        Thread.sleep(100000);
-        cluster.killTopology("hbase-stream-topology");
-        cluster.shutdown();
+                Thread.sleep(100000);
+                cluster.killTopology("hbase-stream-topology");
+                cluster.shutdown();
         
 		//Cluster Run
       //  StormSubmitter.submitTopology("hbase-stream-topology", conf, builder.createTopology());
