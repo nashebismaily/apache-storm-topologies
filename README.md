@@ -4,7 +4,7 @@ This is a collection of advanced Apache Storm topologies using the new Storm 1.x
 
 ## Kyro Serializer Deserializer
 
-This topology will create embedded objects that are serialized/deserialized in Storm using a custom Kyro Serializer/Deserializer.
+This topology will create embedded objects that are serialized/deserialized in Storm using a custom Kyro Serializer/Deserializer.  
 The topology will run in Local Mode and tests the kyro serialization framework.
 
 ## HBase Streaming Multithreaded
