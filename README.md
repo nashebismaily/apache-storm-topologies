@@ -9,8 +9,9 @@ The topology will run in Local Mode and tests the kyro serialization framework.
 
 ## HBase Streaming Multithreaded
 
-This topology will create multiple LinkedBlockingQueues, each represented by a single thread.   
-Each thread will then pull HBase table puts from the queue, batch them, and write them to HBase.  
+This topology will creates a LinkedBlockingQueues and multiple Streamers (each represented by a thread).  
+The Hbase bolt will add table puts to the LinkedBlockingQueue.  
+Each streamer (thread) will then pull HBase table puts from the queue, batch them, and write them to HBase.  
 Tick tuples have been added to aid in table flushing.  
 HBase client side write buffer is presented as an end user defined configuration.  
 
