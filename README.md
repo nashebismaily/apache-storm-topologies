@@ -1,6 +1,6 @@
 # Storm Topologies
 
-This is a collection of Apache Storm topologies using the new Storm 1.x APIs
+This is a collection of advanced Apache Storm topologies using the new Storm 1.x APIs
 
 ## Kyro Serializer Deserializer
 
