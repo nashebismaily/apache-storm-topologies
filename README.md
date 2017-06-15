@@ -1,4 +1,4 @@
-# Storm Topologies
+# Apache Storm Topologies
 
 This is a collection of advanced Apache Storm topologies using the new Storm 1.x APIs
 
